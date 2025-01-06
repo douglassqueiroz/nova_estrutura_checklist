@@ -27,7 +27,7 @@ export class ItensService {
   // Método para deletar um item pelo ID
 // Método para deletar um item pelo ID
 deletarItem(itemId: string): Observable<any> {
-  console.log('Chamando DELETE para:', this.apiUrlDeleteItens, 'com dados:', itemId)
+  console.log('Chamando DELETE para:', `${this.apiUrlDeleteItens}/${itemId}`);
   const headers = new HttpHeaders({
     'Content-Type': 'application/json',
     'Accept': 'application/json'
@@ -35,9 +35,21 @@ deletarItem(itemId: string): Observable<any> {
 
   return this.http.delete(`${this.apiUrlDeleteItens}/${itemId}`, { headers });
 }
-atualizarItem(item: any): Observable<any> {
-  console.log('Atualizando item com id:', item.id);  // Log para verificar o id
 
-  return this.http.put(`${this.apiUrlUpdateItens}/itens/${item.id}`, item);
+atualizarItem(item: any): Observable<any> {
+  console.log('Chamando PUT para:', `${this.apiUrlUpdateItens}/${item.id}`, 'com dados:', item);
+    // Ajustar para enviar o campo correto para o backend
+  const itemAtualizado = {
+    id: item.id,
+    descricao: item.descricao,  // Mantendo a estrutura que você tem no frontend
+    item: item.descricao  // Envia a chave 'item' esperada pelo backend
+  };
+  return this.http.put(`${this.apiUrlUpdateItens}/${item.id}`, itemAtualizado, {
+    //return this.http.put(`http://localhost:5000/api/itens/update/${item.id}`, item, {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    })
+  });
 }
 }

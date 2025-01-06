@@ -18,10 +18,14 @@
   </mat-card>
 </form>
 
+<!-- Exibe a mensagem de sucesso quando um item for criado -->
+<div *ngIf="sucessoCriacao" class="sucesso-notificacao">
+  <p>Item criado com sucesso!</p>
+</div>
+
 <div *ngIf="itens.length > 0; else semItens">
   <div *ngFor="let item of itens">
     <mat-card class="itens-list">
-
       <mat-card-content>
         <p>{{ item.descricao }}</p>
       </mat-card-content>

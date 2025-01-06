@@ -17,6 +17,7 @@ export class ItensComponent implements OnInit {
   itens: any[] = [];  // Array de itens
   descricao = '';  // A descrição será enviada para o backend
   itemEmEdicao: any | null = null; // Armazena o item que está sendo editado
+  sucessoCriacao: boolean = false;  // Variável para controlar a exibição da mensagem de sucesso
 
   constructor(private itensService: ItensService, private cdRef: ChangeDetectorRef) {}
 
@@ -24,6 +25,7 @@ export class ItensComponent implements OnInit {
     this.itensService.obterItens().subscribe(
       (data: any[]) => {
         this.itens = data.map(item => ({
+          id: item.id || item.itemId || null,  // Ajuste o mapeamento conforme necessário
           descricao: item.item || item.itemDescricao || 'Descrição não encontrada'
         }));
         console.log('Itens recebidos:', data);  // Verifique no console se os itens estão corretos
@@ -44,15 +46,16 @@ export class ItensComponent implements OnInit {
     this.descricao = item.descricao;  // Preenche o campo de descrição com o valor atual
   }
   salvarItem() {
+    console.log('salvarItem foi chamado');  // Verifique se isso aparece no console
     if (this.itemEmEdicao) {
       // Atualiza a descrição do item sendo editado
       this.itemEmEdicao.descricao = this.descricao;
-  
-      // Log do item completo antes de enviar
-      console.log('Dados enviados para a atualização do item:', this.itemEmEdicao);
-  
+      // Log do objeto antes de enviar
+      console.log('Item enviado para atualização:', this.itemEmEdicao);
+
       this.itensService.atualizarItem(this.itemEmEdicao).subscribe(
         (response: any) => {
+          console.log('Resposta do backend:', response);
           const index = this.itens.findIndex(item => item.id === this.itemEmEdicao.id);
           if (index !== -1) {
             this.itens[index] = response;  // Atualiza a lista de itens com o item editado
@@ -63,6 +66,8 @@ export class ItensComponent implements OnInit {
           console.error('Erro ao salvar item:', error);
         }
       );
+    } else {
+      this.criarItem();
     }
   }
 
@@ -79,6 +84,10 @@ export class ItensComponent implements OnInit {
         const novoItem = { item: response.id, descricao: response.item };  // Supondo que o 'response' tenha a estrutura correta
         this.itens.push(novoItem);
         this.descricao = '';  // Limpa o campo de descrição após o envio
+        this.sucessoCriacao = true;  // Ativa a exibição da mensagem de sucesso
+        setTimeout(() => {
+          this.sucessoCriacao = false;  // Desativa após 3 segundos
+        }, 3000);
       },
       (error: any) => {
         console.error('Erro ao criar item:', error);
