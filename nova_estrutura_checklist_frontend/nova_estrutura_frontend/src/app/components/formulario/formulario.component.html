@@ -1,0 +1,7 @@
+<div class="form-group">
+  <label for="setor">Setor:</label>
+  <select id="setor" [(ngModel)]="setores">
+    <option value="todos">Todos os setores</option>
+    <option *ngFor="let setor of setores" [value]="setor.descricao">{{ setor.descricao }}</option>
+  </select>
+</div>
