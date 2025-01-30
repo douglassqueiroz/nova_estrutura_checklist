@@ -76,6 +76,7 @@ export class ItensComponent implements OnInit {
     
     const body = {
       item: this.descricao  // Envia 'descricao' como 'item'
+      
     };
     
     this.itensService.enviarItem(body).subscribe(
@@ -90,7 +91,7 @@ export class ItensComponent implements OnInit {
         }, 3000);
       },
       (error: any) => {
-        console.error('Erro ao criar item:', error);
+        console.error('Erro ao criar item: component.ts', error);
       }
     );
   }

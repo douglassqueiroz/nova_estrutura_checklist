@@ -67,3 +67,38 @@ button {
   mat-select .mat-option {
     opacity: 1 !important;
   }
+  .mat-icon-button {
+    margin-right: 8px;
+    cursor: pointer;
+  }
+  
+  .mat-form-field {
+    position: relative;
+  }
+  
+  .mat-icon {
+    color: #757575; /* Cor cinza para o ícone */
+    transition: color 0.3s ease;
+  }
+  
+  .mat-icon:hover {
+    color: #000; /* Destaca o ícone ao passar o mouse */
+  }
+  
+  .bolinha {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: inline-block;
+    margin-left: 8px; /* Espaçamento entre a bolinha e o campo */
+    transition: background-color 0.3s ease; /* Suaviza a transição da cor */
+}
+
+.bolinha-verde {
+    background-color: #4caf50; /* Verde - senha visível */
+}
+
+.bolinha-vermelha {
+    background-color: #f44336; /* Vermelho - senha oculta */
+}

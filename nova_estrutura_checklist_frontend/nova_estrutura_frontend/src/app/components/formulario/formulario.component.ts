@@ -15,7 +15,8 @@ import { MatCardModule } from '@angular/material/card';
 })
 export class FormularioComponent implements OnInit {
   setores: any[] = []; // Lista para armazenar os setores
-
+  usuarios: any[] = []; // Lista para usuarios
+  usuario: any;         // Variável para o usuário selecionado
   constructor(
     private formularioService: FormularioService, // Injeção do serviço corretamente
     private cdRef: ChangeDetectorRef // Para forçar atualização da interface
@@ -40,6 +41,18 @@ export class FormularioComponent implements OnInit {
       },
       (error: any) => {
         console.error('Erro ao obter setores:', error); // Log para erros
+      }
+    );
+    this.formularioService.obterUsuarios().subscribe(
+      (data: any[]) => {
+        console.log('Usuários recebidos:', data);
+        this.usuarios = data; // Preencher a lista de usuários
+        data.forEach((usuario, index) => {
+          console.log(`Usuario ${index + 1}:`, JSON.stringify(usuario, null, 2));
+        });
+      },
+      (error) => {
+        console.error('Erro ao obter usuários:', error);
       }
     );
   }

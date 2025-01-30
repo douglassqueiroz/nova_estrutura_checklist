@@ -14,10 +14,14 @@ export class ItensService {
   constructor(private http: HttpClient) {}
 
   // Método para enviar um novo item ao backend
-  enviarItem(item: any): Observable<any> {
-    console.log('Chamando POST para:', this.apiUrlPostItens, 'com dados:', item);  // Adiciona esse log
+  enviarItem(item: any, formulario: any): Observable<any> {
+    const body = {
+      item: typeof item === 'object' ? item.item : item,  // ✅ Agora usa o parâmetro correto
+      formulario: formulario
+    };
+    console.log('Chamando POST para para itens.service:', this.apiUrlPostItens, 'com dados:', item);  // Adiciona esse log
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.post(this.apiUrlPostItens, item, { headers });
+    return this.http.post(this.apiUrlPostItens, body, { headers });
   }
 
   // Método para obter a lista de itens do backend
@@ -35,7 +39,9 @@ deletarItem(itemId: string): Observable<any> {
 
   return this.http.delete(`${this.apiUrlDeleteItens}/${itemId}`, { headers });
 }
-
+deletarItensPorFormulario(formularioId: number): Observable<any> {
+  return this.http.delete(`/api/itens/delete/${formularioId}`);
+}
 atualizarItem(item: any): Observable<any> {
   console.log('Chamando PUT para:', `${this.apiUrlUpdateItens}/${item.id}`, 'com dados:', item);
     // Ajustar para enviar o campo correto para o backend

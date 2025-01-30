@@ -15,14 +15,20 @@
         <input matInput placeholder="Nome do Usuário" [(ngModel)]="novoUsuario.name" name="name" required>
       </mat-form-field>
 
-      <mat-form-field appearance="fill">
-        <mat-label>Senha</mat-label>
-        <input matInput placeholder="Senha do Usuário" [type]="senhaVisivel ? 'text' : 'password'" [(ngModel)]="novoUsuario.senha" name="senha" required>
-        <button mat-icon-button matSuffix (click)="toggleSenhaVisivel()">
-          <mat-icon>{{ senhaVisivel ? 'visibility_off' : 'visibility' }}</mat-icon>
-        </button>
-      </mat-form-field>
-
+  <mat-form-field appearance="fill">
+      <mat-label>Senha</mat-label>
+      <input matInput 
+            placeholder="Senha do Usuário" 
+            [type]="senhaVisivel ? 'text' : 'password'" 
+            [(ngModel)]="novoUsuario.senha" 
+            name="senha" 
+            required>
+      <span class="bolinha" 
+            [ngClass]="senhaVisivel ? 'bolinha-verde' : 'bolinha-vermelha'" 
+            (click)="toggleSenhaVisivel()">
+      </span>
+  </mat-form-field>
+    
       <mat-form-field appearance="fill">
         <mat-label>Email</mat-label>
         <input matInput placeholder="Email do Usuário" [(ngModel)]="novoUsuario.email" name="email" required>
