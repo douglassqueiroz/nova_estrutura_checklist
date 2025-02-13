@@ -18,12 +18,12 @@ export class CriarFormularioService {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.post(this.apiUrlPostFormulariosCriados,formulariosCriados, {headers});
   } 
-  deletarFormulario(formularioId: string): Observable<any> {
-    console.log('Chamando Delete para',`${this.apiUrlDeleteFormulariosCriados}/${formularioId}`);
+  deletarFormulario(id_formulario: string): Observable<any> {
+    console.log('Chamando Delete para',`${this.apiUrlDeleteFormulariosCriados}/${id_formulario}`);
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Accept': 'application/json'
     });
-    return this.http.delete(`${this.apiUrlDeleteFormulariosCriados}/${formularioId}`, {headers});
+    return this.http.delete(`${this.apiUrlDeleteFormulariosCriados}/${id_formulario}`, {headers});
   }
 }

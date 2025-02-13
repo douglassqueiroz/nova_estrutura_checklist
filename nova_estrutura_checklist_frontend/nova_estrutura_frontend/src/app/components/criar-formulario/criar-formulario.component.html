@@ -17,7 +17,7 @@
       <ul *ngIf="!carregando && !erro && formulariosCriados.length > 0" class="form-list">
         <li *ngFor="let formulario of formulariosCriados">
           {{ formulario.nome }}
-          <button id="delete" (click)="deletarFormulariosCriados(formulario.id ? formulario.id.toString() : '')">Delete</button>
+          <button id="delete" (click)="deletarFormulariosCriados(formulario.id_formulario)">Delete</button>
         </li>
       </ul>
     </mat-card>

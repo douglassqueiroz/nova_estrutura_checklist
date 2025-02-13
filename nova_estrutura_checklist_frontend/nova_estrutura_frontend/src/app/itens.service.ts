@@ -14,10 +14,11 @@ export class ItensService {
   constructor(private http: HttpClient) {}
 
   // Método para enviar um novo item ao backend
-  enviarItem(item: any, formulario: any): Observable<any> {
+  enviarItem(item: any, formulario: any, id_formulario: any): Observable<any> {
     const body = {
       item: typeof item === 'object' ? item.item : item,  // ✅ Agora usa o parâmetro correto
-      formulario: formulario
+      formulario: formulario,
+      id_formulario: id_formulario
     };
     console.log('Chamando POST para para itens.service:', this.apiUrlPostItens, 'com dados:', item);  // Adiciona esse log
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
