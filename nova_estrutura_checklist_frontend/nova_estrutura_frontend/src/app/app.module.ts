@@ -20,6 +20,7 @@ import { MatIcon } from '@angular/material/icon';
     AppComponent,
     UsuarioComponent,
     
+    
   ],
   imports: [
     BrowserModule,

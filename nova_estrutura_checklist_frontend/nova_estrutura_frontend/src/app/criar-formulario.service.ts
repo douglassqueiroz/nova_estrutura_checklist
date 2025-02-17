@@ -9,6 +9,7 @@ export class CriarFormularioService {
   private apiUrlGetFormulariosCriados = '/api/formularios';
   private apiUrlPostFormulariosCriados = '/api/create_formularios'
   private apiUrlDeleteFormulariosCriados = '/api/delete'
+  private apiUrlUpdateFormulariosCriados = '/api/edit'
   constructor(private http: HttpClient) { }
   obterFormulariosCriados(): Observable<any> {
     return this.http.get(this.apiUrlGetFormulariosCriados);
@@ -25,5 +26,19 @@ export class CriarFormularioService {
       'Accept': 'application/json'
     });
     return this.http.delete(`${this.apiUrlDeleteFormulariosCriados}/${id_formulario}`, {headers});
+  }
+  atualizarFormulario(formulariosCriados: any): Observable<any> {
+    console.log("Chamando Put para:",`${this.apiUrlUpdateFormulariosCriados}/${formulariosCriados.id_formulario}`,'com dados', formulariosCriados);
+  
+  const formularioAtualizado = {
+    id_formulario: formulariosCriados.id_formulario,
+    nome: formulariosCriados.nome,
+    status: formulariosCriados.status
+  };
+  return this.http.put(`${this.apiUrlUpdateFormulariosCriados}/${formulariosCriados.id_formulario}`, formularioAtualizado,{
+    headers: new HttpHeaders({
+
+    })
+  });
   }
 }

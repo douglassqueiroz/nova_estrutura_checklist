@@ -1,0 +1,15 @@
+<div class="modal-overlay" *ngIf="modalAberto">
+    <div class="modal-content">
+      <h2>{{ titulo }}</h2>
+  
+      <form (ngSubmit)="salvarFormularioModal()">
+        <!-- Campos do formulário aqui -->
+        <input type="text" [(ngModel)]="formulario.nome" [ngModelOptions]="{standalone: true}" placeholder="Nome">
+        <div class="modal-actions">
+          <button type="submit">Salvar</button>
+          <button type="button" (click)="fecharModalFormulario()">Fechar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  

@@ -126,5 +126,26 @@ mat-label {
   margin-left: auto; /* Isso empurra o botão para a direita */
   padding: 10px 20px; /* Ajuste de espaço interno */
   border: none;
+  border-radius: 6px; /* Arredondamento igual aos outros botões */
+  transition: background-color 0.4s ease, transform 0.1s ease;
+  display: inline-flex;
+
   cursor: pointer;
+}
+#edit{
+  color: white;
+  background-color: #f3dc0c;
+  font-weight: bold;
+  display: flex;
+  margin-left: auto; /* Isso empurra o botão para a direita */
+  padding: 10px 20px; /* Ajuste de espaço interno */
+  border: none;
+  cursor: pointer;
+}
+.form-list li {
+  display: flex;
+  justify-content: space-between; /* Nome à esquerda, botões à direita */
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #ddd; /* Linha separadora opcional */
 }

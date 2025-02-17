@@ -5,7 +5,6 @@ import { FormularioComponent } from './components/formulario/formulario.componen
 import { UsuarioComponent } from './components/usuario/usuario.component';
 import { CriarFormularioComponent } from './components/criar-formulario/criar-formulario.component';
 
-
 const routes: Routes = [
   //{path:'itens', component: ItensComponent},
   {path:'formulario', component: FormularioComponent},
