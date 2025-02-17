@@ -16,11 +16,9 @@
       <!-- Lista de formulários -->
       <ul *ngIf="!carregando && !erro && formulariosCriados.length > 0" class="form-list">
         <li *ngFor="let formulario of formulariosCriados">
-          <span>{{ formulario.nome }}</span>
-          <div class="button-container">
-            <button mat-button (click)="abrirModalFormulario(formulario)">Editar</button>
-            <button id="delete" (click)="deletarFormulariosCriados(formulario.id_formulario)">Delete</button>
-          </div>
+          {{ formulario.nome }}
+          <button id="delete" (click)="deletarFormulariosCriados(formulario.id_formulario)">Delete</button>
+          <button mat-button (click)="abrirModalFormulario(formulario)">Editar</button>
         </li>
       </ul>
     </mat-card>
@@ -37,12 +35,12 @@
     </mat-card-header>
     <mat-card-content>
       <div class="add-form-section">
-        <button mat-raised-button color="primary" (click)="abrirModal()">Adicionar Formulário TESTE</button>
+        <button mat-raised-button color="primary" (click)="abrirModal()">Adicionar Formulário</button>
       </div>
     </mat-card-content>
   </mat-card>
 
-  <div *ngIf="modalAbertoFormulario" class="modal">
+  <div *ngIf="modalAberto" class="modal">
     <div class="modal-content">
       <h2>Adicionar Informações</h2>
       <form (ngSubmit)="salvarFormulario()">
@@ -71,17 +69,9 @@
   
         <div class="modal-actions">
           <button mat-raised-button color="primary" type="submit">Salvar</button>
-          <button mat-button color="warn" (click)="fecharModalFormulario()">Cancelar</button>
+          <button mat-button color="warn" (click)="fecharModal()">Cancelar</button>
         </div>
       </form>
     </div>
   </div>
-  <!---->
-  <app-formulario-modal 
-  [modalAberto]="modalAbertoFormulario" 
-  [titulo]="'Adicionar Formulário'" 
-  [formulario]="novoFormulario" 
-  (fechar)="fecharModalFormulario()" 
-  (salvar)="salvarFormularioModal($event)">
-  </app-formulario-modal>
 </div>

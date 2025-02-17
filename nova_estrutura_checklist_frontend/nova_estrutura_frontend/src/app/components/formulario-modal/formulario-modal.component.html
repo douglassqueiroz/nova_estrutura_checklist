@@ -4,7 +4,14 @@
   
       <form (ngSubmit)="salvarFormularioModal()">
         <!-- Campos do formulário aqui -->
-        <input type="text" [(ngModel)]="formulario.nome" [ngModelOptions]="{standalone: true}" placeholder="Nome">
+        <ul *ngIf="itens && itens.length > 0; else noItems">
+          <li *ngFor="let item of itens">{{ item.descricao }}</li>
+        </ul>
+
+        <!-- Exibe uma mensagem caso não haja itens -->
+        <ng-template #noItems>
+          <p>Nenhum item encontrado.</p>
+        </ng-template>
         <div class="modal-actions">
           <button type="submit">Salvar</button>
           <button type="button" (click)="fecharModalFormulario()">Fechar</button>

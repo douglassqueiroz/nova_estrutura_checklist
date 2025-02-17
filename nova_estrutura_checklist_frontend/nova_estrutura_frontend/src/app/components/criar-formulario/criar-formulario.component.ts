@@ -13,8 +13,7 @@ import { MatDialog } from '@angular/material/dialog';
   templateUrl: './criar-formulario.component.html',
   styleUrls: ['./criar-formulario.component.css'],
   standalone: true,
-  imports: [MatFormFieldModule, MatInputModule, FormsModule, CommonModule, MatCardModule, MatCardHeader, FormularioModalComponent],
-  
+  imports: [MatFormFieldModule, MatInputModule, FormsModule, CommonModule, MatCardModule, MatCardHeader],
 })
 export class CriarFormularioComponent implements OnInit {
   formulariosEmEdicao: any | null = null;
@@ -24,13 +23,12 @@ export class CriarFormularioComponent implements OnInit {
   erro: string | null = null;
   sucessoCriacao: boolean = false; // Controla a exibição da mensagem de sucesso
   novoFormulario: { id_formulario: number | null; nome: string; itens:string[] } = { id_formulario: null, nome: '', itens: [] }; // Para o formulário atual
-  modalAbertoFormulario: boolean = false;
+  modalAberto: boolean = false;
   itens: any[] = [];
   nome:string= '';
   dadosOriginais: any[] = [];
   descricao = '';  // A descrição será enviada para o backend
   itemEmEdicao: any | null = null; // Armazena o item que está sendo editado
-  
   constructor(
     private criarFormularioService: CriarFormularioService,
     private cdRef: ChangeDetectorRef,
@@ -81,14 +79,15 @@ export class CriarFormularioComponent implements OnInit {
     );
   }
   abrirModal(): void {
+    this.modalAberto = true;
       // Garantir que o formulário tenha um ID temporário
   if (!this.novoFormulario.id_formulario) {
     this.novoFormulario.id_formulario = Date.now(); // ID temporário único
   }
   }
 
-  fecharModalFormulario(): void {
-    this.modalAbertoFormulario = false;
+  fecharModal(): void {
+    this.modalAberto = false;
     this.novoFormulario = { id_formulario: null, nome: '', itens: []}; // Limpa os dados do formulário
   }
   carregarFormularios(): void {
@@ -224,45 +223,7 @@ export class CriarFormularioComponent implements OnInit {
         );
       });
         this.formulariosCriados.push(response);
-        this.fecharModalFormulario();
-      },
-      (error) => {
-        console.error('Erro ao salvar formulário:', error);
-      }
-    );
-  }
-  salvarFormularioModal(formulario: any): void {
-    console.log('Formulário Modal salvo', formulario);
-
-    console.log("Executando o 'salvarFormulario no criar-formulario.component.ts'")
-    if (!this.novoFormulario.nome.trim()) {
-      this.novoFormulario.id_formulario = Date.now(); // Gera o ID temporário
-      this.erro = 'O nome do formulário não pode estar vazio.';
-      return; // Não envia o formulário se o nome estiver vazio
-    }
-    
-    console.log('Novo formulário enviado:', this.novoFormulario);
-    this.criarFormularioService.enviarFormulariosCriados(this.novoFormulario).subscribe(
-      (response) => {
-        
-         // Agora, você tem o id_formulario da resposta
-      const idFormularioSalvo = this.novoFormulario;  // Supondo que o ID venha na resposta
-      console.log('Testando o ID:', idFormularioSalvo);
-
-      // Passa o id_formulario ao salvar os itens
-      this.novoFormulario.itens.forEach(item => {
-        this.ItensService.enviarItem(item, this.novoFormulario, idFormularioSalvo).subscribe(
-          (itemResponse) => {
-            console.log('Item salvo:', itemResponse);
-            // Aqui você pode adicionar o item salvo na lista ou realizar outra ação
-          },
-          (error) => {
-            console.error('Erro ao salvar item:', error);
-          }
-        );
-      });
-        this.formulariosCriados.push(response);
-        this.fecharModalFormulario();
+        this.fecharModal();
       },
       (error) => {
         console.error('Erro ao salvar formulário:', error);
@@ -305,6 +266,7 @@ export class CriarFormularioComponent implements OnInit {
     this.formulariosEmEdicao = null;
     this.nome = '';
   }
+
   abrirModalFormulario(Formulario?: any): void {
     const dialogRef = this.dialog.open(FormularioModalComponent,{
       width: '600px',
