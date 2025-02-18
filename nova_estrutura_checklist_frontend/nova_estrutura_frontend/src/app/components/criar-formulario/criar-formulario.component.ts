@@ -86,6 +86,18 @@ export class CriarFormularioComponent implements OnInit {
   }
   }
 
+  abrirModalFormulario(Formulario?: any): void {
+    const dialogRef = this.dialog.open(FormularioModalComponent,{
+      width: '600px',
+      data: Formulario || {id_formulario: null, nome: '', itens: []}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result){
+        console.log('Formulario salvo:', result);
+        this.carregarFormularios();
+      }
+    });
+  }
   fecharModal(): void {
     this.modalAberto = false;
     this.novoFormulario = { id_formulario: null, nome: '', itens: []}; // Limpa os dados do formulário
@@ -266,17 +278,6 @@ export class CriarFormularioComponent implements OnInit {
     this.formulariosEmEdicao = null;
     this.nome = '';
   }
-
-  abrirModalFormulario(Formulario?: any): void {
-    const dialogRef = this.dialog.open(FormularioModalComponent,{
-      width: '600px',
-      data: Formulario || {id_formulario: null, nome: '', itens: []}
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      if (result){
-        console.log('Formulario salvo:', result);
-        this.carregarFormularios();
-      }
-    })
-  }
+  
+ 
 }

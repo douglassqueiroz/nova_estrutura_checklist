@@ -1,22 +1,30 @@
 <div class="modal-overlay" *ngIf="modalAberto">
-    <div class="modal-content">
-      <h2>{{ titulo }}</h2>
-  
-      <form (ngSubmit)="salvarFormularioModal()">
-        <!-- Campos do formulário aqui -->
-        <ul *ngIf="itens && itens.length > 0; else noItems">
-          <li *ngFor="let item of itens">{{ item.descricao }}</li>
-        </ul>
+  <div class="modal-content">
+    <!-- O título começa com o valor de 'titulo', mas pode ser alterado pelo usuário -->
+    <h2>
+      <mat-form-field appearance="fill">
+        <mat-label>Título do Formulário</mat-label>
+        <input matInput [(ngModel)]="titulo" placeholder="Digite o título do formulário">
+      </mat-form-field>
+    </h2>
 
-        <!-- Exibe uma mensagem caso não haja itens -->
-        <ng-template #noItems>
-          <p>Nenhum item encontrado.</p>
-        </ng-template>
-        <div class="modal-actions">
-          <button type="submit">Salvar</button>
-          <button type="button" (click)="fecharModalFormulario()">Fechar</button>
-        </div>
-      </form>
-    </div>
+    <form (ngSubmit)="salvarFormularioModal()">
+      <!-- Exibe os itens do formulário se existirem -->
+      <ul *ngIf="itens && itens.length > 0; else noItems">
+        <li *ngFor="let item of itens">
+          <mat-chip>{{ item.descricao }}</mat-chip>
+        </li>
+      </ul>
+
+      <!-- Exibe uma mensagem caso não haja itens -->
+      <ng-template #noItems>
+        <p>Nenhum item encontradoooo.</p>
+      </ng-template>
+
+      <div class="modal-actions">
+        <button mat-raised-button color="primary" type="submit">Salvar</button>
+        <button mat-button type="button" (click)="fecharModalFormulario()">Fechar</button>
+      </div>
+    </form>
   </div>
-  
+</div>

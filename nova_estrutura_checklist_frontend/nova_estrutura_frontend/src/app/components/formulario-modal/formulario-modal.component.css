@@ -25,3 +25,21 @@
   display: flex;
   justify-content: space-around;
 }
+/* Para telas grandes */
+.container {
+  width: 80%;
+}
+
+/* Para telas médias */
+@media (max-width: 768px) {
+  .container {
+    width: 95%;
+  }
+}
+
+/* Para telas pequenas */
+@media (max-width: 480px) {
+  .container {
+    width: 100%;
+  }
+}

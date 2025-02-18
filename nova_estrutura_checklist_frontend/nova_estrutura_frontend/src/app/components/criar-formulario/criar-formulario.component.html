@@ -18,7 +18,7 @@
         <li *ngFor="let formulario of formulariosCriados">
           {{ formulario.nome }}
           <button id="delete" (click)="deletarFormulariosCriados(formulario.id_formulario)">Delete</button>
-          <button mat-button (click)="abrirModalFormulario(formulario)">Editar</button>
+            <button mat-button (click)="abrirModalFormulario()">Editar</button>
         </li>
       </ul>
     </mat-card>
